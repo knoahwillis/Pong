@@ -1,9 +1,11 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Ball.hpp"
+#include <ctime>
+#include <random>
 
 int main(int argc, char *argv[]){
+
+    srand(time(0));
 
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::cout << "Error: " << SDL_GetError();
@@ -32,8 +34,8 @@ int main(int argc, char *argv[]){
     ball.x = 1080 / 2;
     ball.y = 1080 / 2;
 
-    int ball_x_vel = 3;
-    int ball_y_vel = 1;
+    int ball_x_vel = 5;
+    int ball_y_vel = rand() % 3;
 
 
     bool close = false;
@@ -67,7 +69,19 @@ int main(int argc, char *argv[]){
 				default:
 					break;
                 }
+            if (play1.y + play1.h > 720){
+                play1.y = 720 - play1.h;
 			}
+            if (play2.y + play2.h > 720){
+                play2.y = 720 - play2.h;
+			}
+            if (play1.y < 0){
+                play1.y = 0;
+			}
+            if (play2.y < 0){
+                play2.y = 0;
+			}
+            }
 		}
         ball.y += ball_y_vel;
         ball.x += ball_x_vel;
@@ -83,6 +97,12 @@ int main(int argc, char *argv[]){
 		ball.y < play2.y + play2.h &&
 		ball.y + ball.h > play2.y))){
             ball_x_vel *= -1;
+        }
+        if(ball.x > 1280 || ball.x < 0){
+            ball.x = 1080 / 2;
+            ball.y = 1080 / 2;
+            ball_x_vel = -5;
+            ball_y_vel = rand() % 3;
         }
         SDL_RenderClear(rend);
 		SDL_SetRenderDrawColor(rend, 255, 255, 255, 0);
