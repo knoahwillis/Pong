@@ -3,9 +3,6 @@
 class Ball{
     int x_vel;      //holds the current x velocity
     int y_vel;      //holds the current y velocity
-    int x_pos;      //holds the current x position
-    int y_pos;      //holds the current y position
-
 public:
     void start_game();      //starts the game by selecting a random x and y velocity
 
