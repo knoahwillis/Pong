@@ -20,8 +20,10 @@ int main(int argc, char *argv[]){
     Paddle player1(0);
     Paddle player2(1070);
     Ball ball;
+	pause_menu pause;
 
     bool close = false;
+	bool paused = false;
     SDL_SetRenderDrawColor(rend, 0, 0, 0, 0);
 
 	while(!close){
@@ -48,6 +50,12 @@ int main(int argc, char *argv[]){
 				case SDL_SCANCODE_DOWN:
 					player2.move_paddle_down();
 					break;
+				case SDL_SCANCODE_TAB:
+					paused = !paused;
+					break;
+				case SDL_SCANCODE_ESCAPE:
+					paused = !paused;
+					break;
 				default:
 					break;
                 }
@@ -55,10 +63,15 @@ int main(int argc, char *argv[]){
             player1.stop_paddle_move();
             player2.stop_paddle_move();
 		}
-        ball.move_ball();
+		if(!paused){
+			ball.move_ball();
+		}
 		check_collision(ball, player1, player2);
         SDL_SetRenderDrawColor(rend, 0, 0, 0, 0);
         SDL_RenderClear(rend);
+		if(paused){
+			pause.render_pause(rend);
+		}
 		ball.render_ball(rend);
         player1.render_paddle(rend);
         player2.render_paddle(rend);

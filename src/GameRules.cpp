@@ -15,3 +15,23 @@ void check_collision(Ball &ball, Paddle player1, Paddle player2){
             ball.start_game();
         }
 }
+
+pause_menu::pause_menu(){
+    pause1.x = 455;
+    pause2.x = 570;
+    pause1.y = 225;
+    pause2.y = 225;
+
+    pause1.h = 250;
+    pause2.h = 250;
+    pause1.w = 50;
+    pause2.w = 50;
+}
+
+void pause_menu::render_pause(SDL_Renderer* rend){
+    SDL_SetRenderDrawColor(rend, 255, 255, 255, 0);
+    SDL_RenderFillRect(rend, &pause1);
+    SDL_RenderFillRect(rend, &pause2);
+}
+
+
